@@ -1,0 +1,32 @@
+services:
+
+  db:
+    image: postgres
+    container_name: postgres_dev
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: prince
+      POSTGRES_PASSWORD: prince123
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+        
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    ports:
+      - "89:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: prince121kk@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: prince123
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+  
+
+volumes:
+  local_pgdata:
+  pgadmin-data:
+

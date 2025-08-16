@@ -1,0 +1,13 @@
+[2025-08-13T09:42:28.378Z] Error: Cannot use 'in' operator to search for '$ref' in type:number
+Stack:
+TypeError: Cannot use 'in' operator to search for '$ref' in type:number
+    at le (/home/prince/Desktop/ERP projects/Chronoverse/frontend/node_modules/@hey-api/openapi-ts/dist/index.cjs:32:58457)
+    at dd (/home/prince/Desktop/ERP projects/Chronoverse/frontend/node_modules/@hey-api/openapi-ts/dist/index.cjs:32:52647)
+    at nr (/home/prince/Desktop/ERP projects/Chronoverse/frontend/node_modules/@hey-api/openapi-ts/dist/index.cjs:32:58080)
+    at Rd (/home/prince/Desktop/ERP projects/Chronoverse/frontend/node_modules/@hey-api/openapi-ts/dist/index.cjs:32:57717)
+    at le (/home/prince/Desktop/ERP projects/Chronoverse/frontend/node_modules/@hey-api/openapi-ts/dist/index.cjs:32:58679)
+    at cp (/home/prince/Desktop/ERP projects/Chronoverse/frontend/node_modules/@hey-api/openapi-ts/dist/index.cjs:32:58893)
+    at wo (/home/prince/Desktop/ERP projects/Chronoverse/frontend/node_modules/@hey-api/openapi-ts/dist/index.cjs:32:65988)
+    at sc (/home/prince/Desktop/ERP projects/Chronoverse/frontend/node_modules/@hey-api/openapi-ts/dist/index.cjs:32:126231)
+    at bi (/home/prince/Desktop/ERP projects/Chronoverse/frontend/node_modules/@hey-api/openapi-ts/dist/index.cjs:42:9056)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
