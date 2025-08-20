@@ -45,8 +45,8 @@ function Home() {
         <>
             <div className="w-screen h-screen flex flex-col custome-bg-2 ">
                 <Nav role="user" />
-                <div className='flex-1 text-white flex justify-between items-center px-[1rem] sm:px-[2rem] 2xl:px-[10rem]'>
-                    <div className="hero-text px-5">
+                <div className='flex-1 text-white flex gap-10 justify-between items-center px-[1rem] sm:px-[2rem] 2xl:px-[10rem]'>
+                    <div className="hero-text ">
                         <h1 className='text-4xl sm:text-5xl md:text-6xl mb-[3rem] font-bold '>Where <span className='bg-gradient-to-tl from-slate-800 via-violet-500 to-zinc-400 bg-clip-text text-transparent'> Time Meets</span>  Art</h1>
                         <p className='text-md md:text-lg mt-4 text-slate-400'>Discover limited-edition mechanical masterpieces that redefine timekeeping. <br /> Welcome to the universe of horological excellence – welcome to Chronoverse.
 
@@ -57,8 +57,8 @@ function Home() {
 
                         </div>
                     </div>
-                    <div className="image mt-auto hidden lg:block">
-                        <img src={watchImg} width={700} alt="" />
+                    <div className="image mt-auto mb-auto hidden lg:block">
+                        <img src={watchImg} width={800} alt="" />
                     </div>
                 </div>
 
@@ -83,6 +83,7 @@ function Home() {
                 </div>
 
                 <Footer />
+
             </div>
 
             {/* <div className='w-screen h-screen bg-slate-500 flex justify-center items-center'>

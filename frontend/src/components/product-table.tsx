@@ -2,7 +2,7 @@ import React from "react";
 import ProductForm from "./product-form";
 import { Button } from "./ui/button";
 import { baseURL } from "@/services/baseUrl";
-import { deleteProductsByIdMutation, getProductsQueryKey } from "@/services/api/@tanstack/react-query.gen";
+import { deleteProductsByIdMutation, getProductsQueryKey, getGetStatsQueryKey } from "@/services/api/@tanstack/react-query.gen";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
@@ -31,6 +31,8 @@ const ProductTable = ({ products }) => {
         onSuccess: (data) => {
           toast.success("Product Deleted Successfully")
           queryClient.invalidateQueries({ queryKey: getProductsQueryKey({}) });
+          queryClient.invalidateQueries({ queryKey: getGetStatsQueryKey({}) });
+
         },
         onError: (error) => {
           toast.error(error?.response?.data["error"]);

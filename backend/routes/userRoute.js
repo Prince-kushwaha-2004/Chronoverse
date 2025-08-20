@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { register, login, logout, authenticate } = require('../controllers/userController');
+const { register, login, logout, authenticate, getProductStats } = require('../controllers/userController');
 const { isLogin } = require('../utils/middleware');
 const wrapAsync = require('../utils/wrapAsync');
 
@@ -133,5 +133,30 @@ router.get("/login", isLogin, authenticate);
  *         description: Successfully logged out
  */
 router.post("/logout", logout);
+
+/**
+ * @swagger
+ * /getStats:
+ *   get:
+ *     summary: Total Products Statics
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: Product Stats
+ *         content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                productLeft:
+ *                  type: number
+ *                soldProducts:
+ *                  type: number
+ *                totalOrders:
+ *                  type: number
+ *                totalProducts:
+ *                  type: number
+ */
+router.get("/getStats", wrapAsync(getProductStats))
 
 module.exports = router;

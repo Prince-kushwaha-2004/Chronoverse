@@ -44,7 +44,7 @@ module.exports.login = async (req, res) => {
         return res.status(400).json({ "error": "wrong password" })
     }
     generateToken(user.id, res)
-    res.status(200).json({ "message": "User login successfull" ,user_data: { "name": user.name, "email": user.email} })
+    res.status(200).json({ "message": "User login successfull", user_data: { "name": user.name, "email": user.email } })
 }
 
 module.exports.logout = (req, res) => {
@@ -55,4 +55,35 @@ module.exports.logout = (req, res) => {
 module.exports.authenticate = (req, res) => {
     res.status(200).send({ "message": "User is authenticated", user_data: { "name": req.user.name, "email": req.user.email } })
 
+}
+
+module.exports.getProductStats = async (req, res) => {
+
+    const productLeft = await prisma.product.aggregate({
+        where: {
+            status: "ACTIVE"
+        },
+        _sum: {
+            quantity: true
+        }
+    });
+    const soldProducts = await prisma.order.aggregate({
+        where: {
+            status: "ACTIVE",
+            orderStatus: "ACCEPTED"
+        },
+        _sum: {
+            quantity: true
+        }
+    });
+    const totalOrders = await prisma.order.aggregate({
+        where: {
+            status: "ACTIVE",
+            orderStatus: "PENDING"
+        },
+        _sum: {
+            quantity: true
+        }
+    });
+    res.status(200).json({ productLeft: productLeft._sum.quantity, soldProducts: soldProducts._sum.quantity, totalOrders: totalOrders._sum.quantity, totalProducts: productLeft._sum.quantity + soldProducts._sum.quantity });
 }

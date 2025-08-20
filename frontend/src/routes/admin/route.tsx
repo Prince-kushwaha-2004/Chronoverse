@@ -6,6 +6,7 @@ import { getLoginOptions } from '@/services/api/@tanstack/react-query.gen';
 import { AxiosError } from 'axios';
 import { useRouter } from '@tanstack/react-router';
 import Loader from '@/components/loader';
+import { getGetStatsOptions } from '@/services/api/@tanstack/react-query.gen';
 
 export const Route = createFileRoute('/admin')({
   component: AdminComponent,
@@ -18,8 +19,12 @@ function AdminComponent() {
     ...getLoginOptions({}),
     retry: false,
   });
+  const { data: stats, isLoading: dataLoading } = useQuery({
+    ...getGetStatsOptions({}),
+    retry: false,
+  });
 
-  if (loading) {
+  if (loading || dataLoading) {
     return <Loader />
   }
   if (isError) {
@@ -30,12 +35,12 @@ function AdminComponent() {
     }
   }
 
-  const stats = {
-    totalProducts: 120,
-    totalOrders: 342,
-    productsLeft: 55,
-    soldProducts: 65,
-  };
+  // const stats = {
+  //   totalProducts: 120,
+  //   totalOrders: 342,
+  //   productsLeft: 55,
+  //   soldProducts: 65,
+  // };
 
   return (<div className="text-white  w-full custome-bg-2 min-h-screen px-[2rem] 2xl:px-[10rem]">
     <Nav role="admin" />

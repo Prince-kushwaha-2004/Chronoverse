@@ -24,7 +24,7 @@ import { postProductsMutation, patchProductsByIdMutation } from "@/services/api/
 import { ProductInput } from "@/services/api";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { getProductsQueryKey } from "@/services/api/@tanstack/react-query.gen";
+import { getProductsQueryKey, getGetStatsQueryKey } from "@/services/api/@tanstack/react-query.gen";
 type formProps = {
     type: "add" | "update",
     data?: ProductInput
@@ -87,6 +87,8 @@ function ProductForm({ type, data }: formProps) {
                     onSuccess: (data) => {
                         toast.success("Product Added Successfully")
                         queryClient.invalidateQueries({ queryKey: getProductsQueryKey({}) });
+                        queryClient.invalidateQueries({ queryKey: getGetStatsQueryKey({}) });
+
                         setFormData({
                             name: "",
                             model: "",
@@ -110,6 +112,8 @@ function ProductForm({ type, data }: formProps) {
                         onSuccess: (data) => {
                             toast.success("Product Updated Successfully")
                             queryClient.invalidateQueries({ queryKey: getProductsQueryKey({}) });
+                            queryClient.invalidateQueries({ queryKey: getGetStatsQueryKey({}) });
+
                         },
                         onError: (error) => {
                             toast.error(error?.response?.data["error"]);

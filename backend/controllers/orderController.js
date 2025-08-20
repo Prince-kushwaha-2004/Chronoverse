@@ -14,21 +14,21 @@ module.exports.createOrder = async (req, res) => {
 
 
     for (const product of products) {
-        if (!product.id || !product.quantity || typeof product.quantity !== 'number' || product.quantity <= 0) {
+        if (!product.productId || !product.quantity || typeof product.quantity !== 'number' || product.quantity <= 0) {
             return res.status(400).json({ "error": "Each product must have a valid id and quantity greater than 0" });
         }
 
         const productExists = await prisma.product.findUnique({
-            where: { id: product.id, status: 'ACTIVE' }
+            where: { id: product.productId, status: 'ACTIVE' }
         });
         if (!productExists) {
-            return res.status(404).json({ "error": `Product with id ${product.id} not found` });
+            return res.status(404).json({ "error": `Product with id ${product.productId} not found` });
         }
         if (productExists.quantity < product.quantity) {
-            return res.status(400).json({ "error": `Insufficient stock for product with id ${product.id}` });
+            return res.status(400).json({ "error": `Insufficient stock for product with id ${product.productId}` });
         }
         await prisma.product.update({
-            where: { id: product.id },
+            where: { id: product.productId },
             data: {
                 quantity: productExists.quantity - product.quantity
             }
@@ -40,7 +40,7 @@ module.exports.createOrder = async (req, res) => {
                 email: email,
                 phoneNo: phoneNo,
                 address: address,
-                productId: product.id,
+                productId: product.productId,
                 quantity: product.quantity
             }
         });

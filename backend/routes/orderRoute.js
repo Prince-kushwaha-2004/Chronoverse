@@ -24,6 +24,34 @@ router.get("/", isLogin, wrapAsync(getOrders));
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     OrderData:
+ *       type: object
+ *       required:
+ *         - name
+ *         - email
+ *         - phoneNo
+ *         - address
+ *         - products
+ *       properties:
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *         phoneNo:
+ *           type: string
+ *         address:
+ *           type: string
+ *         products:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: integer
+ *               quantity:
+ *                 type: integer
  * /orders:
  *   post:
  *     summary: Create a new order
@@ -33,25 +61,7 @@ router.get("/", isLogin, wrapAsync(getOrders));
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               email:
- *                 type: string
- *               phoneNo:
- *                 type: string
- *               address:
- *                 type: string
- *               products:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: integer
- *                     quantity:
- *                       type: integer
+ *             $ref: '#/components/schemas/OrderData'
  *     responses:
  *       201:
  *         description: Order created successfully

@@ -18,7 +18,7 @@ const StatsCardGroup = ({ stats }) => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       <StatCard icon={Box} title="Total Products" value={stats.totalProducts} />
       <StatCard icon={ShoppingCart} title="Total Orders" value={stats.totalOrders} />
-      <StatCard icon={PackageX} title="Products Left" value={stats.productsLeft} />
+      <StatCard icon={PackageX} title="Products Left" value={stats.productLeft} />
       <StatCard icon={PackageCheck} title="Sold Products" value={stats.soldProducts} />
     </div>
   );

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { getProductsByIdOptions } from '@/services/api/@tanstack/react-query.gen'
 import { useQuery } from '@tanstack/react-query'
 import Loader from '@/components/loader'
+import { toast } from 'sonner'
 import { baseURL } from '@/services/baseUrl'
 export const Route = createFileRoute('/_homeLayout/products/$productId')({
   component: ProductComponent,
@@ -15,7 +16,10 @@ type carts = {
 
 function ProductComponent() {
   const { productId } = Route.useParams()
-  const [quantity, setQuantity] = useState(1)
+  const cartsData = localStorage.getItem("carts")
+  let carts: carts = cartsData ? JSON.parse(cartsData) : []
+  const cartItem = carts.filter((item) => item.productId == Number(productId))
+  const [quantity, setQuantity] = useState(cartItem.length ? cartItem[0].quantity : 1)
   const { data: product, isLoading: loading } = useQuery({
     ...getProductsByIdOptions({
       path: {
@@ -55,6 +59,7 @@ function ProductComponent() {
       });
     }
     localStorage.setItem("carts", JSON.stringify(carts));
+    toast.success(`${quantity} Items added to Cart!`)
   }
 
   return (
@@ -72,30 +77,36 @@ function ProductComponent() {
 
           <p className="text-gray-400 mb-4">{product?.description}</p>
           <p className="text-xl text-violet-400 font-semibold mb-6">₹ {product?.price}</p>
+          {product?.quantity == 0 ?
+            <p className='font-bold'>Out Of Stock</p>
+            :
+            <>
+              <div className="flex items-center mb-6 ">
+                <button
+                  onClick={decrement}
+                  className="rounded-s-md border border-violet-500 bg-violet-700 px-4 py-2 hover:bg-violet-800 transition"
+                >
+                  -
+                </button>
+                <span className="px-4 py-2 border border-zinc-600 ">{quantity}</span>
+                <button
+                  onClick={increment}
+                  className="rounded-e-md border border-violet-500 bg-violet-700 px-4 py-2 hover:bg-violet-800 transition"
+                >
+                  +
+                </button>
+              </div>
 
-          <div className="flex items-center mb-6 ">
-            <button
-              onClick={decrement}
-              className="rounded-s-md border border-violet-500 bg-violet-700 px-4 py-2 hover:bg-violet-800 transition"
-            >
-              -
-            </button>
-            <span className="px-4 py-2 border border-zinc-600 ">{quantity}</span>
-            <button
-              onClick={increment}
-              className="rounded-e-md border border-violet-500 bg-violet-700 px-4 py-2 hover:bg-violet-800 transition"
-            >
-              +
-            </button>
-          </div>
-
-          <button
-            onClick={handleAddToCart}
-            className="px-6 py-2 bg-violet-700 hover:bg-violet-800 rounded-full font-medium transition-all"
-          >
-            Add to Cart
-          </button>
+              <button
+                onClick={handleAddToCart}
+                className="px-6 py-2 bg-violet-700 hover:bg-violet-800 rounded-full font-medium transition-all"
+              >
+                Add to Cart
+              </button>
+            </>
+          }
         </div>
+
       </div>
     </div>
   )
