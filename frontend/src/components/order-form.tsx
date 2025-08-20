@@ -15,6 +15,7 @@ import { OrderData } from "@/services/api";
 import { useMutation } from "@tanstack/react-query";
 import { postOrdersMutation } from "@/services/api/@tanstack/react-query.gen";
 import { toast } from "sonner";
+import { validate } from "@/services/validation";
 function OrderForm({ data }) {
     const orderMutation = useMutation(postOrdersMutation())
     const [formData, setFormData] = useState<OrderData>(
@@ -39,6 +40,24 @@ function OrderForm({ data }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData)
+        const nameValidation = validate("name", formData.name);
+        const emailValidation = validate("email", formData.email);
+        const phoneValidation = validate("phoneNo", formData.phoneNo);
+        const addressValidation = validate("address", formData.address);
+
+        if (!nameValidation.valid) {
+            return toast.error(nameValidation.message);
+        }
+        if (!emailValidation.valid) {
+            return toast.error(emailValidation.message);
+        }
+        if (!phoneValidation.valid) {
+            return toast.error(phoneValidation.message);
+        }
+        if (!addressValidation.valid) {
+            return toast.error(addressValidation.message);
+        }
+
         orderMutation.mutate(
             {
                 body: formData
@@ -124,7 +143,7 @@ function OrderForm({ data }) {
                         <Input
                             id="phoneNo"
                             name="phoneNo"
-                            type="number"
+                            type="text"
                             value={formData.phoneNo}
                             onChange={handleChange}
                             required
@@ -158,7 +177,7 @@ function OrderForm({ data }) {
                     </div>
 
                     <div className="pt-4">
-                        <Button type="submit" className="w-full bg-violet-700 hover:bg-violet-800 text-white">
+                        <Button type="submit" disabled={orderMutation.isPending} className="w-full bg-violet-700 hover:bg-violet-800 text-white">
                             Pay Now
                         </Button>
 

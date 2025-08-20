@@ -1,6 +1,6 @@
 const { PrismaClient } = require('../generated/prisma/client')
 const prisma = new PrismaClient()
-
+const sendMail = require('../utils/sendMail')
 
 module.exports.createOrder = async (req, res) => {
     const { name, email, phoneNo, address, products } = req.body;
@@ -12,6 +12,7 @@ module.exports.createOrder = async (req, res) => {
         return res.status(400).json({ "error": "Products are required" });
     }
 
+    let orderedProducts = []
 
     for (const product of products) {
         if (!product.productId || !product.quantity || typeof product.quantity !== 'number' || product.quantity <= 0) {
@@ -33,7 +34,6 @@ module.exports.createOrder = async (req, res) => {
                 quantity: productExists.quantity - product.quantity
             }
         });
-
         await prisma.order.create({
             data: {
                 name: name,
@@ -44,9 +44,38 @@ module.exports.createOrder = async (req, res) => {
                 quantity: product.quantity
             }
         });
-
+        orderedProducts.push({
+            name: productExists.name,
+            quantity: product.quantity
+        });
     }
-    res.status(201).json({ message: "Order created successfully" });
+    const orderDetailsHtml = `
+    <h4>Dear ${name} ,</h4>
+    <h4>Your order has been created successfully</h4>
+    <h4>Order Details</h4>
+        <ul>
+            <li><strong>Phone Number:</strong> ${phoneNo}</li>
+            <li><strong>Address:</strong> ${address}</li>
+            <li><strong>Products:</strong>
+                <ul>
+                    ${orderedProducts.map(p => `<li>Product Name: ${p.name} : Quantity: ${p.quantity}</li>`)}
+                </ul>
+            </li>
+        </ul>
+    `;
+    const mailStatus = await sendMail({
+        from: 'prince121kk@gmail.com',
+        to: email,
+        subject: 'CHRONOVERSE: Order Confirmation',
+        html: orderDetailsHtml
+    });
+
+    if (mailStatus.success) {
+        res.status(201).json({ message: "Order created successfully" });
+    } else {
+        return res.status(500).json({ error: mailStatus.message });
+    }
+
 }
 
 module.exports.updateOrder = async (req, res) => {

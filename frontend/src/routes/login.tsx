@@ -7,6 +7,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import Loader from '@/components/loader'
 import { toast } from 'sonner'
+import { validate } from '@/services/validation'
 export const Route = createFileRoute('/login')({
   component: Login,
 })
@@ -39,6 +40,13 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault()
     console.log(formData)
+
+    const emailValidation = validate("email", formData.email);
+
+    if (!emailValidation.valid) {
+      return toast.error(emailValidation.message);
+    }
+
 
     loginMutation.mutate(
       { body: formData },

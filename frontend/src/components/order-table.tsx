@@ -16,14 +16,14 @@ const OrderTable = ({ orders, onAccept, onReject }) => {
             <table className="min-w-full table-auto text-left text-sm text-gray-300">
                 <thead className="bg-white/10 backdrop-blur-sm text-gray-100">
                     <tr>
-                        <th className="px-6 py-3">Product</th>
-                        <th className="px-6 py-3">Model</th>
-                        <th className="px-6 py-3">Quantity</th>
-                        <th className="px-6 py-3">Customer Name</th>
-                        <th className="px-6 py-3">Email</th>
-                        <th className="px-6 py-3">Mobile</th>
-                        <th className="px-6 py-3">Address</th>
-                        <th className="px-6 py-3">Action</th>
+                        <th className="px-4 py-3">Product</th>
+                        <th className="px-4 py-3">Model</th>
+                        <th className="px-4 py-3">Quantity</th>
+                        <th className="px-4 py-3">Customer Name</th>
+                        <th className="px-4 py-3">Email</th>
+                        <th className="px-4 py-3">Mobile</th>
+                        <th className="px-4 py-3">Address</th>
+                        <th className="px-4 py-3">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,14 +32,14 @@ const OrderTable = ({ orders, onAccept, onReject }) => {
                             key={idx}
                             className="hover:bg-white/10 transition duration-200 ease-in-out"
                         >
-                            <td className="px-6 py-4">{order.product.name}</td>
-                            <td className="px-6 py-4">{order.product.model}</td>
-                            <td className="px-6 py-4">{order.quantity}</td>
-                            <td className="px-6 py-4">{order.name}</td>
-                            <td className="px-6 py-4">{order.email}</td>
-                            <td className="px-6 py-4">{order.phoneNo}</td>
-                            <td className="px-6 py-4 line-clamp-2 max-w-xs">{order.address}</td>
-                            <td className="px-6 py-4 space-x-2 ">
+                            <td className="px-4 py-4">{order.product.name}</td>
+                            <td className="px-4 py-4">{order.product.model}</td>
+                            <td className="px-4 py-4">{order.quantity}</td>
+                            <td className="px-4 py-4">{order.name}</td>
+                            <td className="px-4 py-4">{order.email}</td>
+                            <td className="px-4 py-4">{order.phoneNo}</td>
+                            <td className="px-4 py-4 line-clamp-2 max-w-xs">{order.address}</td>
+                            <td className="px-4 py-4 space-x-2 ">
                                 {order.orderStatus === "ACCEPTED" ? (
                                     <p className="text-green-500 text-center font-bold">Accepted</p>
                                 ) : order.orderStatus === "REJECTED" ? (
@@ -50,7 +50,7 @@ const OrderTable = ({ orders, onAccept, onReject }) => {
                                             <AlertDialogTrigger>
                                                 <div
 
-                                                    className="cursor-pointer m-2 !bg-violet-500/10 backdrop-blur-md border border-violet-500/20 text-violet-400 hover:!bg-violet-500/20 hover:text-white transition px-4 py-2 rounded-md"
+                                                    className="cursor-pointer my-2 !bg-violet-500/10 backdrop-blur-md border border-violet-500/20 text-violet-400 hover:!bg-violet-500/20 hover:text-white transition px-4 py-2 rounded-md"
                                                 >
                                                     Accept
                                                 </div>
@@ -72,7 +72,7 @@ const OrderTable = ({ orders, onAccept, onReject }) => {
                                         <AlertDialog>
                                             <AlertDialogTrigger>
                                                 <div
-                                                    className="cursor-pointer m-2 !bg-red-500/10 backdrop-blur-md border border-red-500/20 text-red-400 hover:!bg-red-500/20 hover:text-white transition px-4 py-2 rounded-md"
+                                                    className="cursor-pointer my-2 !bg-red-500/10 backdrop-blur-md border border-red-500/20 text-red-400 hover:!bg-red-500/20 hover:text-white transition px-4 py-2 rounded-md"
                                                 >
                                                     Reject
                                                 </div>

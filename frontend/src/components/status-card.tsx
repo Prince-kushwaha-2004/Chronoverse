@@ -16,10 +16,10 @@ const StatCard = ({ icon: Icon, title, value }) => (
 const StatsCardGroup = ({ stats }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <StatCard icon={Box} title="Total Products" value={stats.totalProducts} />
-      <StatCard icon={ShoppingCart} title="Total Orders" value={stats.totalOrders} />
-      <StatCard icon={PackageX} title="Products Left" value={stats.productLeft} />
-      <StatCard icon={PackageCheck} title="Sold Products" value={stats.soldProducts} />
+      <StatCard icon={Box} title="Total Products" value={stats.totalProducts | 0} />
+      <StatCard icon={ShoppingCart} title="Total Orders" value={stats.totalOrders | 0} />
+      <StatCard icon={PackageX} title="Products Left" value={stats.productLeft | 0} />
+      <StatCard icon={PackageCheck} title="Sold Products" value={stats.soldProducts | 0} />
     </div>
   );
 };

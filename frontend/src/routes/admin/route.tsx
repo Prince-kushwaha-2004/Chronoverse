@@ -35,12 +35,6 @@ function AdminComponent() {
     }
   }
 
-  // const stats = {
-  //   totalProducts: 120,
-  //   totalOrders: 342,
-  //   productsLeft: 55,
-  //   soldProducts: 65,
-  // };
 
   return (<div className="text-white  w-full custome-bg-2 min-h-screen px-[2rem] 2xl:px-[10rem]">
     <Nav role="admin" />

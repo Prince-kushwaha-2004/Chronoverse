@@ -4,7 +4,7 @@ import Loader from './components/loader'
 export function createRouter() {
     const router = createTanStackRouter({
         routeTree,
-        scrollRestoration: true,
+        scrollRestoration: false,
         defaultPendingComponent: () => <div>Loading...from main</div>,
     })
 

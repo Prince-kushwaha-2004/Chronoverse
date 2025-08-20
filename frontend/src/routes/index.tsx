@@ -25,8 +25,16 @@ function Home() {
     const { data: productData, isLoading: productLoading } = useQuery({
         ...getProductsOptions({}),
         retry: false,
-    }
-    )
+        refetchInterval: 10000,
+    });
+
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         refetchProducts();
+    //     }, 10000); // 10 seconds
+
+    //     return () => clearInterval(interval);
+    // }, [refetchProducts]);
 
     if (loading || productLoading) {
         return <Loader />
